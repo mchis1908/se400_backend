@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProductSchema = mongoose.Schema({
-    image: {
+    images: {
         type: Array,
         required: true
     },
