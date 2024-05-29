@@ -8,6 +8,7 @@ const imageUpload = require("./routes/image-server");
 require('dotenv').config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
   console.log("Connected to database!");
@@ -23,6 +24,6 @@ app.use(bodyParser.json());
 app.use("/api/v1/products", ProductRoute);
 app.use("/image-server", imageUpload)
 
-app.listen(process.env.PORT, () => {
-  console.log('Server is listening on port '+ process.env.PORT);
+app.listen(PORT, () => {
+  console.log('Server is listening on port '+ PORT);
 });

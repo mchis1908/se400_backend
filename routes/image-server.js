@@ -1,6 +1,6 @@
-const { Request, Response, Router } = require("express");
-const upload = require("../services/image-upload");
-const { cloudinaryAPI } = require("../utils/cloudinary");
+const { Router } = require('express');
+const upload = require('../services/image-upload');
+const { cloudinaryAPI } = require('../utils/cloudinary');
 
 const router = Router();
 
