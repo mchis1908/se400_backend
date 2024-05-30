@@ -3,7 +3,7 @@ const ProductModel = require('../models/product');
 const ProductController = {
     GetAllProducts: async (req, res) => {
         try {
-            const products = await ProductModel.find().select('id image name description price');
+            const products = await ProductModel.find().select('id images name description price inspireImages');
             res.status(200).json({ products });
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -13,7 +13,7 @@ const ProductController = {
     GetProductById: async (req, res) => {
         try {
             const productId = req.params.id;
-            const product = await ProductModel.findById(productId).select('id image name description price');
+            const product = await ProductModel.findById(productId).select('id images name description price inspireImages');
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
@@ -39,12 +39,13 @@ const ProductController = {
     UpdateProduct: async (req, res) => {
         try {
             const productId = req.params.id;
-            const { image, name, description, price } = req.body;
+            const { images, name, description, price, inspireImages } = req.body;
             const updatedProduct = await ProductModel.findByIdAndUpdate(productId, {
-                image,
+                images,
                 name,
                 description,
-                price
+                price,
+                inspireImages
             }, { new: true });
             if (!updatedProduct) {
                 return res.status(404).json({ message: 'Product not found' });
@@ -57,12 +58,12 @@ const ProductController = {
     },
     CreateProduct: async (req, res) => {
         try {
-            const { image, name, description, price } = req.body;
+            const { images, name, description, price } = req.body;
             const newProduct = new ProductModel({
-                image,
+                images,
                 name,
                 description,
-                price            
+                price
             });
             await newProduct.save();
             res.status(201).json({ message: 'Product created successfully'});
