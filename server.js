@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const ProductRoute = require("./routes/productRoute");
+const CommunityRoute = require("./routes/communityRoute");
 const imageUpload = require("./routes/image-server");
 
 require('dotenv').config();
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 
 
 app.use("/api/v1/products", ProductRoute);
+app.use("/api/v1/community", CommunityRoute);
 app.use("/image-server", imageUpload)
 
 app.listen(PORT, () => {
