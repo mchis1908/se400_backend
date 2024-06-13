@@ -45,15 +45,17 @@ const CommunityController = {
                 item.results.map(result => extractPath(result.path)).filter(Boolean)
             );
 
+            const uniqueInspireImages = [...new Set(inspireImages)];
+
             // Cập nhật bảng products với inspireImage
-            for (const imageId of inspireImages) {
+            for (const imageId of uniqueInspireImages) {
                 await ProductModel.findByIdAndUpdate(
                     imageId,
                     { $push: { inspireImages: image } },
                     { new: true, useFindAndModify: false }
                 );
             }
-            res.status(201).json({ message: 'Inspiration created successfully', inspiration: newInspiration, inspireImages: inspireImages});
+            res.status(201).json({ message: 'Inspiration created successfully', inspiration: newInspiration, inspireImages: uniqueInspireImages});
         } catch (error) {
             console.error('Error creating product:', error);
             res.status(500).json({ message: 'Internal server error' });
